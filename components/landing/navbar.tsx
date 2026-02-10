@@ -1,9 +1,14 @@
 "use client"
 
-import { useState } from "react"
-import Link from "next/link"
-import { Menu, X, Phone } from "lucide-react"
+import { Menu, Phone } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet"
 
 const navLinks = [
   { label: "Home", href: "/" },
@@ -28,6 +33,7 @@ export function Navbar() {
           </span>
         </Link>
 
+        {/* Desktop Navigation */}
         <nav className="hidden items-center gap-1 md:flex">
           {navLinks.map((link) => (
             <Link
@@ -52,40 +58,51 @@ export function Navbar() {
           </Button>
         </div>
 
-        <button
-          type="button"
-          className="inline-flex items-center justify-center rounded-lg p-2 text-muted-foreground md:hidden"
-          onClick={() => setMobileOpen(!mobileOpen)}
-          aria-label="Toggle navigation"
-        >
-          {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-        </button>
-      </div>
-
-      {mobileOpen && (
-        <div className="border-t border-border bg-card px-4 pb-4 md:hidden">
-          <nav className="flex flex-col gap-1 pt-2">
-            {navLinks.map((link) => (
-              <Link
-                key={link.label}
-                href={link.href}
-                className="rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground hover:bg-secondary hover:text-foreground"
-                onClick={() => setMobileOpen(false)}
-              >
-                {link.label}
-              </Link>
-            ))}
-            <div className="mt-3 flex flex-col gap-2">
-              <Button variant="outline" asChild>
-                <Link href="/login">Log In</Link>
+        {/* Mobile Navigation */}
+        <div className="md:hidden">
+          <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
+            <SheetTrigger asChild>
+              <Button variant="ghost" size="icon" className="p-2 text-muted-foreground" aria-label="Toggle navigation">
+                <Menu className="h-6 w-6" />
               </Button>
-              <Button asChild>
-                <Link href="/login">Book Appointment</Link>
-              </Button>
-            </div>
-          </nav>
+            </SheetTrigger>
+            <SheetContent side="right" className="flex flex-col gap-6 pt-12 sm:max-w-xs">
+              <SheetHeader className="text-left px-0">
+                <SheetTitle className="flex items-center gap-2">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
+                    <span className="text-base font-bold text-primary-foreground">M</span>
+                  </div>
+                  <span className="text-lg font-bold">MediCare AI</span>
+                </SheetTitle>
+              </SheetHeader>
+              <nav className="flex flex-col gap-2">
+                {navLinks.map((link) => (
+                  <Link
+                    key={link.label}
+                    href={link.href}
+                    className="flex w-full items-center rounded-lg px-3 py-3 text-base font-medium text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
+                    onClick={() => setMobileOpen(false)}
+                  >
+                    {link.label}
+                  </Link>
+                ))}
+              </nav>
+              <div className="mt-auto flex flex-col gap-3 pb-8">
+                <Button variant="outline" size="lg" className="w-full" asChild>
+                  <Link href="/login" onClick={() => setMobileOpen(false)}>
+                    Log In
+                  </Link>
+                </Button>
+                <Button size="lg" className="w-full shadow-lg shadow-primary/20" asChild>
+                  <Link href="/login" onClick={() => setMobileOpen(false)}>
+                    Book Appointment
+                  </Link>
+                </Button>
+              </div>
+            </SheetContent>
+          </Sheet>
         </div>
-      )}
+      </div>
     </header>
   )
 }

@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button"
 export function HeroSection() {
   return (
     <section className="relative overflow-hidden bg-gradient-to-br from-primary/5 via-background to-accent/5">
-      <div className="mx-auto flex max-w-7xl flex-col items-center gap-8 px-4 py-16 lg:flex-row lg:gap-12 lg:px-8 lg:py-24">
+      <div className="mx-auto flex max-w-7xl flex-col items-center gap-8 px-4 pb-24 pt-16 lg:flex-row lg:gap-12 lg:px-8 lg:py-24">
         <div className="flex flex-1 flex-col gap-6 text-center lg:text-left">
           <div className="inline-flex items-center gap-2 self-center rounded-full border border-primary/20 bg-primary/5 px-4 py-1.5 text-sm font-medium text-primary lg:self-start">
             <span className="relative flex h-2 w-2">
